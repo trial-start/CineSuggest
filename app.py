@@ -96,28 +96,25 @@ def main():
     st.title('Movie Recommendation System')
 
     # Create an empty container for the sidebar
-    sidebar_container = st.empty()
+    st.sidebar.title("About")
+    st.sidebar.info(
+        'This is a movie recommendation system based on collaborative filtering using nearest neighbors.'
+        'It provides recommendations based on user-selected movies.'
+        'The model was trained on the MovieLens dataset.'
+    )
+
+    # Display dataset statistics
+    st.sidebar.title("Dataset Statistics")
+    # st.sidebar.write('Total training data:', len(movie_features_df))
+    st.sidebar.write('Number of available movies:', movie_features_df.shape[0])
+    st.sidebar.write('Number of Users involved in rating :', movie_features_df.shape[1])
 
     # Movie input with autocomplete
     movie_name = st.selectbox('Enter a movie name:', [''] + movie_features_df.index.tolist())
 
     # If a movie is selected, display the sidebar
-    if movie_name:
-        # Sidebar with project description and information
-        with sidebar_container:
-            st.sidebar.title("About")
-            st.sidebar.info(
-                'This is a movie recommendation system based on collaborative filtering using nearest neighbors.'
-                'It provides recommendations based on user-selected movies.'
-                'The model was trained on the MovieLens dataset.'
-            )
-
-            # Display dataset statistics
-            st.sidebar.title("Dataset Statistics")
-            st.sidebar.write('Total training data:', len(movie_features_df))
-            st.sidebar.write('Number of available movies:', movie_features_df.shape[0])
-            st.sidebar.write('Number of Users involved in rating :', movie_features_df.shape[1])
-
+    
+          
     # Slider to select the number of recommendations
     num_recommendations = st.slider('Select number of recommendations:', 1, 10, 5)
 
